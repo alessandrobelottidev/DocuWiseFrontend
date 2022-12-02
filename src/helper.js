@@ -19,3 +19,25 @@ export const getAzienda = async () => {
 		throw new Error('Impossibile fare richiesta al server')
 	}
 }
+
+export const getDocuments = async (startDate, endDate) => {
+	const req = await fetch('http://localhost:3000/documents', {
+		credentials: 'include',
+		headers: {
+			'Accept': 'application/json',
+			'Content-Type': 'application/json'
+		},
+		method: "POST",
+		body: JSON.stringify({startDate, endDate})
+	})
+	const data = await req.json()
+
+	if (req.ok) {
+		if (data.fatture.length == 0) return []
+		else return JSON.parse(data.fatture)
+	} else {
+		throw new Error(
+			"Impossibile trovare i documenti richiesti al momento, prova a ricaricare la pagina, altrimenti contatta l'amministratore...",
+		)
+	}
+}

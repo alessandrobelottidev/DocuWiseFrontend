@@ -4,25 +4,32 @@
 	import ErrorMessage from '../components/ErrorMessage.svelte'
 	import { Link } from 'svelte-routing'
 
+	import { getDocuments } from '../helper'
+
 	export let loggedIn
 	export let sitename
 
-	async function getDocuments() {
-		const req = await fetch('http://localhost:3000/documents', {
-			credentials: 'include',
-		})
-		const data = await req.json()
-
-		if (req.ok) {
-			return JSON.parse(data.fatture)
-		} else {
-			throw new Error(
-				"Impossibile trovare i documenti richiesti al momento, prova a ricaricare la pagina, altrimenti contatta l'amministratore...",
-			)
-		}
+	function padTo2Digits(num) {
+		return num.toString().padStart(2, '0')
 	}
 
-	//let documents = getDocuments()
+	function formatDate(date) {
+		return [
+			date.getFullYear(),
+			padTo2Digits(date.getMonth() + 1),
+			padTo2Digits(date.getDate()),
+		].join('-')
+	}
+
+	const date = new Date();
+
+	let startDate = formatDate(new Date(date.getFullYear(), date.getMonth(), 1))
+	let endDate = formatDate(new Date(date.getFullYear(), date.getMonth()+1, 0))
+
+  	const firstDayCurrentMonth = new Date(date.getFullYear(), date.getMonth(), 1).toISOString().slice(0, 19).replace('T', ' ')
+	const lastDayCurrentMonth = new Date(date.getFullYear(), date.getMonth()+1, 0).toISOString().slice(0, 19).replace('T', ' ')
+
+	let documents = getDocuments(firstDayCurrentMonth, lastDayCurrentMonth)
 </script>
 
 <svelte:head>
@@ -38,14 +45,14 @@
 			<label class="label" for="startDate">
 			  <span class="label-text">Data inizio</span>
 			</label>
-			<input type="date" name="startDate" class="input drop-shadow-sm w-full max-w-[200px]" />
+			<input type="date" name="startDate" class="input drop-shadow-sm w-full max-w-[200px]" bind:value={startDate} />
 		</div>
 		
 		<div class="form-control">
 			<label class="label" for="endDate">
 			  <span class="label-text">Data fine</span>
 			</label>
-			<input type="date" name="endDate" class="input drop-shadow-sm w-full max-w-[200px]" />
+			<input type="date" name="endDate" class="input drop-shadow-sm w-full max-w-[200px]" bind:value={endDate} />
 		</div>
 
 		<div class="btn">FILTRA</div>
@@ -55,7 +62,7 @@
 
 	<div>
 		{#if loggedIn}
-			{#await getDocuments()}
+			{#await documents}
 				Caricando le tue fatture...
 			{:then fatture}
 					<div class="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
