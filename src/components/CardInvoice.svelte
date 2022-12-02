@@ -9,6 +9,7 @@
 	export let pIva
 	export let data
 	export let totale
+	export let numeroFattura
 
 	function padTo2Digits(num) {
 		return num.toString().padStart(2, '0')
@@ -30,7 +31,7 @@
 </script>
 
 <div class="rounded-md drop-shadow-sm bg-white p-4">
-	<h2 class="text-lg font-medium mb-1">Fattura N°</h2>
+	<h2 class="text-lg font-medium mb-1">Fattura N° {numeroFattura}</h2>
 	<p class="text-sm mb-1">
 		<b>A:</b>
 		{nominativo}

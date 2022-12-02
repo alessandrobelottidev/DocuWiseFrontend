@@ -33,38 +33,43 @@
 	<h1 class="text-2xl font-bold pb-4">Le tue fatture</h1>
 
 	<!-- Filters -->
-	<form action="#" class="flex flex-row items-center pb-4 gap-2">
-		<select class="select drop-shadow-sm w-full max-w-[200px]">
-			<option selected>Tutte le fatture</option>
-			<option>2022</option>
-			<option>2021</option>
-			<option>2020</option>
-			<option>2019</option>
-			<option>2018</option>
-			<option>2017</option>
-		</select>
+	<form action="#" class="flex flex-row items-end pb-4 gap-2">
+		<div class="form-control">
+			<label class="label" for="startDate">
+			  <span class="label-text">Data inizio</span>
+			</label>
+			<input type="date" name="startDate" class="input drop-shadow-sm w-full max-w-[200px]" />
+		</div>
+		
+		<div class="form-control">
+			<label class="label" for="endDate">
+			  <span class="label-text">Data fine</span>
+			</label>
+			<input type="date" name="endDate" class="input drop-shadow-sm w-full max-w-[200px]" />
+		</div>
 
 		<div class="btn">FILTRA</div>
+
+		<div class="btn btn-ghost"></div>
 	</form>
 
-	<main>
+	<div>
 		{#if loggedIn}
 			{#await getDocuments()}
 				Caricando le tue fatture...
 			{:then fatture}
-				<div
-					class="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6"
-				>
-					{#each fatture as fattura}
-						<CardInvoice
-							id={fattura.id}
-							nominativo={fattura.nominativo}
-							pIva={fattura.pIva}
-							data={fattura.data}
-							totale={fattura.totale}
-						/>
-					{/each}
-				</div>
+					<div class="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
+						{#each fatture as fattura}
+							<CardInvoice
+								id={fattura.id}
+								nominativo={fattura.nominativo}
+								pIva={fattura.pIva}
+								data={fattura.data}
+								totale={fattura.totale}
+								numeroFattura={fattura.numeroFattura}
+							/>
+						{/each}
+					</div>
 			{:catch err}
 				<ErrorMessage message={err.message} />
 			{/await}
@@ -73,7 +78,7 @@
 				message="Devi essere registrato per poter accedere ai contenuti di questa pagina..."
 			/>
 		{/if}
-	</main>
+	</div>
 
 	<!-- Create invoice button -->
 	<div class="fixed z-10 bottom-4 right-4 drop-shadow-lg">
