@@ -20,21 +20,38 @@ export const getAzienda = async () => {
 	}
 }
 
+function compare(a, b) {
+	if (a.numeroFattura < b.numeroFattura) {
+		return -1
+	}
+	if (a.numeroFattura > b.numeroFattura) {
+		return 1
+	}
+	return 0
+}
+
 export const getDocuments = async (startDate, endDate) => {
 	const req = await fetch('http://localhost:3000/documents', {
 		credentials: 'include',
 		headers: {
-			'Accept': 'application/json',
-			'Content-Type': 'application/json'
+			Accept: 'application/json',
+			'Content-Type': 'application/json',
 		},
-		method: "POST",
-		body: JSON.stringify({startDate, endDate})
+		method: 'POST',
+		body: JSON.stringify({
+			startDate: new Date(startDate),
+			endDate: new Date(endDate),
+		}),
 	})
 	const data = await req.json()
 
 	if (req.ok) {
 		if (data.fatture.length == 0) return []
-		else return JSON.parse(data.fatture)
+		else {
+			let fatture = JSON.parse(data.fatture)
+			fatture.sort(compare)
+			return fatture
+		}
 	} else {
 		throw new Error(
 			"Impossibile trovare i documenti richiesti al momento, prova a ricaricare la pagina, altrimenti contatta l'amministratore...",

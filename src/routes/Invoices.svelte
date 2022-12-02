@@ -1,10 +1,13 @@
 <script>
+	import dayjs from 'dayjs'
+
 	import addSvgIcon from '../assets/icons/add.svg'
 	import CardInvoice from '../components/CardInvoice.svelte'
 	import ErrorMessage from '../components/ErrorMessage.svelte'
 	import { Link } from 'svelte-routing'
 
 	import { getDocuments } from '../helper'
+	import { onMount } from 'svelte'
 
 	export let loggedIn
 	export let sitename
@@ -21,15 +24,33 @@
 		].join('-')
 	}
 
-	const date = new Date();
+	let startDate
+	let endDate
+	let documents = []
 
-	let startDate = formatDate(new Date(date.getFullYear(), date.getMonth(), 1))
-	let endDate = formatDate(new Date(date.getFullYear(), date.getMonth()+1, 0))
+	$: console.log(documents)
+	$: console.log('Start date:', startDate)
+	$: console.log('End date:', endDate)
 
-  	const firstDayCurrentMonth = new Date(date.getFullYear(), date.getMonth(), 1).toISOString().slice(0, 19).replace('T', ' ')
-	const lastDayCurrentMonth = new Date(date.getFullYear(), date.getMonth()+1, 0).toISOString().slice(0, 19).replace('T', ' ')
+	function getFirstDayOfMonth(year, month) {
+		return new Date(year, month, 1)
+	}
 
-	let documents = getDocuments(firstDayCurrentMonth, lastDayCurrentMonth)
+	onMount(() => {
+		startDate = `${dayjs().year()}-${dayjs().month() + 1}-01`
+
+		endDate = `${dayjs().year()}-${dayjs().month() + 1}-${dayjs()
+			.endOf('month')
+			.date()}`
+
+		documents = getDocuments(startDate, endDate.replace('T', ' '))
+	})
+
+	const filterDocuments = () => {
+		if (startDate !== '' && endDate !== '')
+			if (!dayjs(startDate).isAfter(endDate))
+				documents = documents = getDocuments(startDate, endDate)
+	}
 </script>
 
 <svelte:head>
@@ -43,21 +64,29 @@
 	<form action="#" class="flex flex-row items-end pb-4 gap-2">
 		<div class="form-control">
 			<label class="label" for="startDate">
-			  <span class="label-text">Data inizio</span>
+				<span class="label-text">Data inizio</span>
 			</label>
-			<input type="date" name="startDate" class="input drop-shadow-sm w-full max-w-[200px]" bind:value={startDate} />
+			<input
+				type="date"
+				name="startDate"
+				class="input drop-shadow-sm w-full max-w-[200px]"
+				bind:value={startDate}
+			/>
 		</div>
-		
+
 		<div class="form-control">
 			<label class="label" for="endDate">
-			  <span class="label-text">Data fine</span>
+				<span class="label-text">Data fine</span>
 			</label>
-			<input type="date" name="endDate" class="input drop-shadow-sm w-full max-w-[200px]" bind:value={endDate} />
+			<input
+				type="date"
+				name="endDate"
+				class="input drop-shadow-sm w-full max-w-[200px]"
+				bind:value={endDate}
+			/>
 		</div>
 
-		<div class="btn">FILTRA</div>
-
-		<div class="btn btn-ghost"></div>
+		<button type="button" class="btn" on:click={filterDocuments}>FILTRA</button>
 	</form>
 
 	<div>
@@ -65,18 +94,20 @@
 			{#await documents}
 				Caricando le tue fatture...
 			{:then fatture}
-					<div class="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
-						{#each fatture as fattura}
-							<CardInvoice
-								id={fattura.id}
-								nominativo={fattura.nominativo}
-								pIva={fattura.pIva}
-								data={fattura.data}
-								totale={fattura.totale}
-								numeroFattura={fattura.numeroFattura}
-							/>
-						{/each}
-					</div>
+				<div
+					class="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6"
+				>
+					{#each fatture as fattura}
+						<CardInvoice
+							id={fattura.id}
+							nominativo={fattura.nominativo}
+							pIva={fattura.pIva}
+							data={fattura.data}
+							totale={fattura.totale}
+							numeroFattura={fattura.numeroFattura}
+						/>
+					{/each}
+				</div>
 			{:catch err}
 				<ErrorMessage message={err.message} />
 			{/await}

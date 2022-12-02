@@ -66,14 +66,14 @@
 					{err}
 				{/await}
 
-				<div
-					class="bg-cyan-600 flex flex-row text-white py-2 px-4 mb-4 font-medium"
-				>
-					<p class="flex-1">Fattura N°</p>
-					<p class="flex-1 text-right">30/10/22</p>
-				</div>
-
 				{#await getFattura() then fattura}
+					<div
+						class="bg-cyan-600 flex flex-row text-white py-2 px-4 mb-4 font-medium"
+					>
+						<p class="flex-1">Fattura N° {fattura.numeroFattura}</p>
+						<p class="flex-1 text-right">30/10/22</p>
+					</div>
+
 					<p class="border-b-2 border-cyan-600 pb-1 mb-4">Fatturare a</p>
 					<p class="font-serif uppercase mb-2">{fattura.nominativo}</p>
 					<p class="font-serif uppercase"><b>Via</b></p>
