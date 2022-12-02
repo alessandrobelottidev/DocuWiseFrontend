@@ -1,0 +1,26 @@
+{
+  "name": "docuwise",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "@sveltejs/vite-plugin-svelte": "^1.1.0",
+    "autoprefixer": "^10.4.13",
+    "postcss": "^8.4.19",
+    "svelte": "^3.52.0",
+    "tailwindcss": "^3.2.4",
+    "vite": "^3.2.3"
+  },
+  "dependencies": {
+    "daisyui": "^2.42.1",
+    "downloadjs": "^1.4.7",
+    "html-to-image": "^1.10.8",
+    "html2canvas": "^1.4.1",
+    "svelte-routing": "^1.6.0"
+  }
+}

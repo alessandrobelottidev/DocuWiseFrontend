@@ -1,0 +1,24 @@
+{
+    "azienda": {
+        "nome": "Cucitutto di Viktoriia Kysliuchenko",
+        "indirizzoResidenzaFiscale": "Vill. Badia, Via Settima 76",
+        "cittaResidenzaFiscale": "Brescia (BS)",
+        "pIva": "04272620982",
+        "urlProfilo": ""
+    },
+    "fatture": [
+        {
+            "data": "30/10/2022",
+            "nominativo": "Immobiliare Franciacorta di Belotti S.R.L.",
+            "indirizzoResidenza": "Via Galli 13",
+            "capResidenza": "25030",
+            "cittaResidenza": "Paratico (BS)",
+            "pIva": "02377110982",
+            "codFiscale": "",
+            "tipo": "azienda",
+            "lavoroSvolto": "Lavorazioni eseguite per i vostri clienti",
+            "totale": "2500"
+        }
+    ],
+    "tema": "base1"
+}
