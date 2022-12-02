@@ -7,7 +7,7 @@
 	import download from 'downloadjs'
 	import { navigate } from 'svelte-routing'
 
-	import { getAzienda, getFattura } from '../helper'
+	import { getUser, getDocument } from '../helper'
 
 	export let id
 	export let loggedIn
@@ -37,7 +37,7 @@
 			id="invoice"
 		>
 			<div class="text-gray-600">
-				{#await getAzienda() then azienda}
+				{#await getUser() then azienda}
 					<i class="font-serif"
 						><h1 class="text-xl font-bold uppercase">{azienda.nomeAzienda}</h1>
 						<p>{azienda.indirizzoResidenzaFiscale}</p>
@@ -48,7 +48,7 @@
 					{err}
 				{/await}
 
-				{#await getFattura(id) then fattura}
+				{#await getDocument(id) then fattura}
 					<div
 						class="bg-cyan-600 flex flex-row text-white py-2 px-4 mb-4 font-medium"
 					>

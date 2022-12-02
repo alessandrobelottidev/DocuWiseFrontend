@@ -3,7 +3,7 @@
 	import ErrorMessage from '../components/ErrorMessage.svelte'
 
 	// Logic
-	import { getAzienda } from '../helper'
+	import { getUser } from '../helper'
 
 	export let loggedIn
 	export let sitename
@@ -18,7 +18,7 @@
 	class="flex items-center justify-center"
 >
 	{#if loggedIn}
-		{#await getAzienda()}
+		{#await getUser()}
 			Caricando il tuo account...
 		{:then azienda}
 			<form class="bg-white rounded-md shadow-md max-w-sm w-full">

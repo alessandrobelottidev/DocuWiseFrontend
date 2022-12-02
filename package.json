@@ -19,6 +19,7 @@
   "dependencies": {
     "daisyui": "^2.42.1",
     "dayjs": "^1.11.6",
+    "dotenv": "^16.0.3",
     "downloadjs": "^1.4.7",
     "html-to-image": "^1.10.8",
     "html2canvas": "^1.4.1",

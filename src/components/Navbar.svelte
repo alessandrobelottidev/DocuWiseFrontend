@@ -6,27 +6,9 @@
 	import { Link } from 'svelte-routing'
 
 	// Logic
-	import { getAzienda } from '../helper'
+	import { getUser, logOut } from '../helper'
 
 	export let loggedIn = false
-
-	async function logOut() {
-		if (loggedIn) {
-			const req = await fetch('http://localhost:3000/logout', {
-				credentials: 'include',
-			})
-
-			if (!req.ok) {
-				throw new Error('Non é stato possibile con il server al momento...')
-			} else {
-				window.location.replace('/login')
-			}
-		} else {
-			throw new Error(
-				'Devi essere registrato per poter accedere ai contenuti di questa pagina...',
-			)
-		}
-	}
 </script>
 
 <navbar
@@ -52,7 +34,7 @@
 				<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
 				<div tabindex="0" class="btn btn-ghost btn-circle avatar">
 					<div class="w-10 rounded-full">
-						{#await getAzienda() then azienda}
+						{#await getUser() then azienda}
 							<img src={azienda.urlProfilo} alt="Profile" />
 						{/await}
 					</div>

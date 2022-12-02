@@ -1,4 +1,6 @@
 <script>
+	import config from '../../config.json'
+
 	export let loggedIn
 	export let sitename
 
@@ -15,7 +17,7 @@
 			document.getElementById('password').checkValidity()
 		) {
 			if (username !== '' && password !== '') {
-				fetch('http://localhost:3000/auth', {
+				fetch(`${config.API_BASE_URL}/auth`, {
 					method: 'POST',
 					headers: {
 						Accept: 'application/json',
