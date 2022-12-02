@@ -58,3 +58,16 @@ export const getDocuments = async (startDate, endDate) => {
 		)
 	}
 }
+
+export const getFattura = async (id) => {
+	const req = await fetch('http://localhost:3000/document/' + id, {
+		credentials: 'include',
+	})
+	const data = await req.json()
+
+	if (req.ok) {
+		return JSON.parse(data)
+	} else {
+		throw new Error('Impossibile fare richiesta al server')
+	}
+}

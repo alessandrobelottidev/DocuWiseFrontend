@@ -4,39 +4,14 @@
 	import deleteSvgIcon from '../assets/icons/delete.svg'
 	import ErrorMessage from '../components/ErrorMessage.svelte'
 	import * as htmlToImage from 'html-to-image'
-	import { toPng, toJpeg, toBlob, toPixelData, toSvg } from 'html-to-image'
 	import download from 'downloadjs'
 	import { navigate } from 'svelte-routing'
+
+	import { getAzienda, getFattura } from '../helper'
 
 	export let id
 	export let loggedIn
 	export let sitename
-
-	async function getAzienda() {
-		const req = await fetch('http://localhost:3000/azienda', {
-			credentials: 'include',
-		})
-		const data = await req.json()
-
-		if (req.ok) {
-			return JSON.parse(data.azienda)
-		} else {
-			throw new Error('Impossibile fare richiesta al server')
-		}
-	}
-
-	async function getFattura() {
-		const req = await fetch('http://localhost:3000/document/' + id, {
-			credentials: 'include',
-		})
-		const data = await req.json()
-
-		if (req.ok) {
-			return JSON.parse(data)
-		} else {
-			throw new Error('Impossibile fare richiesta al server')
-		}
-	}
 
 	async function navigateBack() {
 		navigate('/')
@@ -73,7 +48,7 @@
 					{err}
 				{/await}
 
-				{#await getFattura() then fattura}
+				{#await getFattura(id) then fattura}
 					<div
 						class="bg-cyan-600 flex flex-row text-white py-2 px-4 mb-4 font-medium"
 					>
