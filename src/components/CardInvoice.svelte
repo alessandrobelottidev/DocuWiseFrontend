@@ -1,4 +1,6 @@
 <script>
+	import config from '../../config.json'
+
 	import viewSvgIcon from '@assets/icons/view.svg'
 	import editSvgIcon from '@assets/icons/edit.svg'
 	import downloadSvgIcon from '@assets/icons/download.svg'
@@ -28,9 +30,27 @@
 	function view() {
 		window.location.replace('/view/' + id)
 	}
+
+	const downloadFile = async () => {
+		const response = await fetch(
+			`${config.API_BASE_URL}/documents/download/${id}`,
+			{
+				credentials: 'include',
+			},
+		)
+
+		const downloadurl = window.URL.createObjectURL(await response.blob())
+		const link = document.createElement('a')
+		link.href = downloadurl
+
+		// TODO for naming the response can have wins in headers
+		link.setAttribute('download', 'file.pdf') //or any other extension
+		document.body.appendChild(link)
+		link.click()
+	}
 </script>
 
-<div class="rounded-md drop-shadow-sm bg-white p-4">
+<div class="rounded-md drop-shadow-sm bg-white p-4 h-max">
 	<h2 class="text-lg font-medium mb-1">Fattura N° {numeroFattura}</h2>
 	<p class="text-sm mb-1">
 		<b>A:</b>
@@ -54,11 +74,12 @@
 		</div>-->
 
 		<div class="tooltip tooltip-bottom" data-tip="SCARICA">
-			<div
+			<button
 				class="btn bg-emerald-700 hover:bg-emerald-800 focus:bg-emerald-800 border-transparent hover:border-transparent focus:border-transparent w-full"
+				on:click={downloadFile}
 			>
 				<img src={downloadSvgIcon} class="h-5" alt="Icona download" />
-			</div>
+			</button>
 		</div>
 
 		<div class="tooltip tooltip-bottom" data-tip="ELIMINA">
