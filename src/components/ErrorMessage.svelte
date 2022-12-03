@@ -1,5 +1,5 @@
 <script>
-	import reloadIcon from '../assets/icons/reload.svg'
+	import reloadIcon from '@assets/icons/reload.svg'
 
 	export let message
 

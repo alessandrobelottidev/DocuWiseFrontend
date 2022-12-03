@@ -1,13 +1,13 @@
 <script>
-	import downloadSvgIcon from '../assets/icons/download.svg'
-	import backSvgIcon from '../assets/icons/back.svg'
-	import deleteSvgIcon from '../assets/icons/delete.svg'
-	import ErrorMessage from '../components/ErrorMessage.svelte'
+	import downloadSvgIcon from '@assets/icons/download.svg'
+	import backSvgIcon from '@assets/icons/back.svg'
+	import deleteSvgIcon from '@assets/icons/delete.svg'
+	import ErrorMessage from '@components/ErrorMessage.svelte'
 	import * as htmlToImage from 'html-to-image'
 	import download from 'downloadjs'
 	import { navigate } from 'svelte-routing'
 
-	import { getUser, getDocument } from '../helper'
+	import { getUser, getDocument } from '@src/helper'
 
 	export let id
 	export let loggedIn
@@ -27,7 +27,7 @@
 </script>
 
 <svelte:head>
-	<title>Fattura n° | {sitename}</title>
+	<title>Visualizza fattura | {sitename}</title>
 </svelte:head>
 
 {#if loggedIn}

@@ -1,12 +1,12 @@
 <script>
 	import dayjs from 'dayjs'
 
-	import addSvgIcon from '../assets/icons/add.svg'
-	import CardInvoice from '../components/CardInvoice.svelte'
-	import ErrorMessage from '../components/ErrorMessage.svelte'
+	import addSvgIcon from '@assets/icons/add.svg'
+	import CardInvoice from '@components/CardInvoice.svelte'
+	import ErrorMessage from '@components/ErrorMessage.svelte'
 	import { Link } from 'svelte-routing'
 
-	import { getDocuments } from '../helper'
+	import { getDocuments } from '@src/helper'
 	import { onMount } from 'svelte'
 
 	export let loggedIn
@@ -43,13 +43,15 @@
 			.endOf('month')
 			.date()}`
 
-		documents = getDocuments(startDate, endDate.replace('T', ' '))
+		getDocuments(startDate, endDate.replace('T', ' ')).then(
+			(data) => (documents = data),
+		)
 	})
 
 	const filterDocuments = () => {
 		if (startDate !== '' && endDate !== '')
 			if (!dayjs(startDate).isAfter(endDate))
-				documents = documents = getDocuments(startDate, endDate)
+				getDocuments(startDate, endDate).then((data) => (documents = data))
 	}
 </script>
 

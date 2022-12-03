@@ -1,15 +1,15 @@
 <script>
 	import { Router, Route } from 'svelte-routing'
-	import Navbar from './components/Navbar.svelte'
+	import Navbar from '@components/Navbar.svelte'
 
-	import Login from './routes/Login.svelte'
-	import Invoices from './routes/Invoices.svelte'
-	import CreateInvoice from './routes/createInvoice.svelte'
-	import Account from './routes/Account.svelte'
-	import View from './routes/View.svelte'
-	import NotFound from './routes/NotFound.svelte'
+	import Login from '@routes/Login.svelte'
+	import Invoices from '@routes/Invoices.svelte'
+	import CreateInvoice from '@routes/createInvoice.svelte'
+	import Account from '@routes/Account.svelte'
+	import View from '@routes/View.svelte'
+	import NotFound from '@routes/NotFound.svelte'
 
-	import { isLoggedIn } from './helper'
+	import { isLoggedIn } from '@src/helper'
 
 	const sitename = 'DocuWise'
 	let loggedIn = false

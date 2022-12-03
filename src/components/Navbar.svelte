@@ -1,12 +1,12 @@
 <script>
 	// Assets
-	import DocuWiseLogo from '../assets/DocuWiseLogo.png'
+	import DocuWiseLogo from '@assets/DocuWiseLogo.png'
 
 	// Components
 	import { Link } from 'svelte-routing'
 
 	// Logic
-	import { getUser, logOut } from '../helper'
+	import { getUser, logOut } from '@src/helper'
 
 	export let loggedIn = false
 </script>

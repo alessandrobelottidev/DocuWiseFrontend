@@ -1,8 +1,8 @@
 <script>
-	import viewSvgIcon from '../assets/icons/view.svg'
-	import editSvgIcon from '../assets/icons/edit.svg'
-	import downloadSvgIcon from '../assets/icons/download.svg'
-	import deleteSvgIcon from '../assets/icons/delete.svg'
+	import viewSvgIcon from '@assets/icons/view.svg'
+	import editSvgIcon from '@assets/icons/edit.svg'
+	import downloadSvgIcon from '@assets/icons/download.svg'
+	import deleteSvgIcon from '@assets/icons/delete.svg'
 
 	export let id
 	export let nominativo

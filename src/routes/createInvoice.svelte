@@ -1,9 +1,9 @@
 <script>
 	// Assets
-	import documentPlusIcon from '../assets/icons/document-plus.svg'
+	import documentPlusIcon from '@assets/icons/document-plus.svg'
 
 	// Components
-	import ErrorMessage from '../components/ErrorMessage.svelte'
+	import ErrorMessage from '@components/ErrorMessage.svelte'
 
 	// Logic
 

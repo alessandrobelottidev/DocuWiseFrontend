@@ -1,5 +1,5 @@
 <script>
-	import backIcon from '../assets/icons/back.svg'
+	import backIcon from '@assets/icons/back.svg'
 
 	function goToHomepage() {
 		window.location.replace('/')

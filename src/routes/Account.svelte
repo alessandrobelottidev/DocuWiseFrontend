@@ -1,9 +1,9 @@
 <script>
 	// Components
-	import ErrorMessage from '../components/ErrorMessage.svelte'
+	import ErrorMessage from '@components/ErrorMessage.svelte'
 
 	// Logic
-	import { getUser } from '../helper'
+	import { getUser } from '@src/helper'
 
 	export let loggedIn
 	export let sitename
