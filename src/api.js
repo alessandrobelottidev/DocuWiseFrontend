@@ -24,18 +24,10 @@ export const getUser = async () => {
 }
 
 export const getDocuments = async (startDate, endDate) => {
-	const req = await fetch(`${config.API_BASE_URL}/documents`, {
-		credentials: 'include',
-		headers: {
-			Accept: 'application/json',
-			'Content-Type': 'application/json',
-		},
-		method: 'POST',
-		body: JSON.stringify({
-			startDate: new Date(startDate),
-			endDate: new Date(endDate),
-		}),
-	})
+	const req = await fetch(
+		`${config.API_BASE_URL}/documents/${startDate}/${endDate}`,
+		{ credentials: 'include' },
+	)
 	const data = await req.json()
 
 	if (req.ok) {

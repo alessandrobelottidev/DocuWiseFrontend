@@ -6,10 +6,12 @@
 	import ErrorMessage from '@components/ErrorMessage.svelte'
 
 	// Logic
+	import config from '../../config.json'
 
 	export let loggedIn
 	export let sitename
 
+	let numeroFattura
 	let nominativo
 	let data
 	let indirizzoResidenza
@@ -21,6 +23,60 @@
 	let lavoroSvolto
 	let totale
 	let temaPredefinito
+	/*
+	$: console.log(capResidenza)
+
+	const createInvoice = async () => {
+		if (
+			numeroFattura !== '' &&
+			numeroFattura !== undefined &&
+			nominativo !== '' &&
+			nominativo !== undefined &&
+			data !== '' &&
+			data !== undefined &&
+			indirizzoResidenza !== '' &&
+			indirizzoResidenza !== undefined &&
+			capResidenza !== '' &&
+			capResidenza !== undefined &&
+			cittaResidenza !== '' &&
+			cittaResidenza !== undefined &&
+			pIva !== '' &&
+			pIva !== undefined &&
+			codFiscale !== '' &&
+			codFiscale !== undefined &&
+			tipo !== '' &&
+			tipo !== undefined &&
+			lavoroSvolto !== '' &&
+			lavoroSvolto !== undefined &&
+			totale !== '' &&
+			totale !== undefined &&
+			temaPredefinito !== '' &&
+			temaPredefinito !== undefined
+		) {
+			const req = await fetch(`${config.API_BASE_URL}/documents`, {
+				credentials: 'include',
+				headers: {
+					Accept: 'application/json',
+					'Content-Type': 'application/json',
+				},
+				method: 'POST',
+				body: JSON.stringify({
+					numeroFattura,
+					nominativo,
+					data,
+					indirizzoResidenza,
+					capResidenza,
+					cittaResidenza,
+					pIva,
+					codFiscale,
+					tipo,
+					lavoroSvolto,
+					totale,
+					temaPredefinito,
+				}),
+			})
+		}
+	}*/
 </script>
 
 <svelte:head>
@@ -39,6 +95,22 @@
 			<h1 class="text-2xl font-bold text-center mb-4">Nuova fattura</h1>
 
 			<div class="w-full gap-x-4 gap-y-2 grid grid-cols-2 mb-4">
+				<!-- Numero fattura -->
+				<div class="form-control w-full ">
+					<label class="label" for="numeroFattura">
+						<span class="label-text">Numero fattura</span>
+					</label>
+					<input
+						bind:value={numeroFattura}
+						type="text"
+						name="numeroFattura"
+						placeholder="1"
+						id="numeroFattura"
+						class="input w-full input-bordered "
+						required
+					/>
+				</div>
+
 				<!-- Nominativo -->
 				<div class="form-control w-full ">
 					<label class="label" for="nominativo">
