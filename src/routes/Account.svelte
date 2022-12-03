@@ -3,7 +3,7 @@
 	import ErrorMessage from '@components/ErrorMessage.svelte'
 
 	// Logic
-	import { getUser } from '@src/helper'
+	import { getUser } from '@src/api'
 
 	export let loggedIn
 	export let sitename

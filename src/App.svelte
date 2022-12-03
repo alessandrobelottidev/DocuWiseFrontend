@@ -9,7 +9,7 @@
 	import View from '@routes/View.svelte'
 	import NotFound from '@routes/NotFound.svelte'
 
-	import { isLoggedIn } from '@src/helper'
+	import { isLoggedIn } from '@src/api'
 
 	const sitename = 'DocuWise'
 	let loggedIn = false

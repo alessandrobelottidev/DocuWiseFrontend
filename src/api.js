@@ -1,3 +1,4 @@
+import { navigate } from 'svelte-routing'
 import config from '../config.json'
 
 export const isLoggedIn = async () => {

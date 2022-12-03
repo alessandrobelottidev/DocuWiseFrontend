@@ -1,7 +1,9 @@
 <script>
 	import backIcon from '@assets/icons/back.svg'
 
-	function goToHomepage() {
+	import { navigate } from 'svelte-routing'
+
+	const goToHomepage = () => {
 		window.location.replace('/')
 	}
 </script>

@@ -7,7 +7,7 @@
 	import download from 'downloadjs'
 	import { navigate } from 'svelte-routing'
 
-	import { getUser, getDocument } from '@src/helper'
+	import { getUser, getDocument } from '@src/api'
 
 	export let id
 	export let loggedIn

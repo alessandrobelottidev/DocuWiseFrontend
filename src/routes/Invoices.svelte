@@ -6,23 +6,11 @@
 	import ErrorMessage from '@components/ErrorMessage.svelte'
 	import { Link } from 'svelte-routing'
 
-	import { getDocuments } from '@src/helper'
+	import { getDocuments } from '@src/api'
 	import { onMount } from 'svelte'
 
 	export let loggedIn
 	export let sitename
-
-	function padTo2Digits(num) {
-		return num.toString().padStart(2, '0')
-	}
-
-	function formatDate(date) {
-		return [
-			date.getFullYear(),
-			padTo2Digits(date.getMonth() + 1),
-			padTo2Digits(date.getDate()),
-		].join('-')
-	}
 
 	let startDate
 	let endDate
@@ -31,10 +19,6 @@
 	$: console.log(documents)
 	$: console.log('Start date:', startDate)
 	$: console.log('End date:', endDate)
-
-	function getFirstDayOfMonth(year, month) {
-		return new Date(year, month, 1)
-	}
 
 	onMount(() => {
 		startDate = `${dayjs().year()}-${dayjs().month() + 1}-01`

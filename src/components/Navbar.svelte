@@ -6,7 +6,7 @@
 	import { Link } from 'svelte-routing'
 
 	// Logic
-	import { getUser, logOut } from '@src/helper'
+	import { getUser, logOut } from '@src/api'
 
 	export let loggedIn = false
 </script>
