@@ -63,6 +63,13 @@ export const getDocument = async (id) => {
 	}
 }
 
+export const deleteInvoice = async (id) => {
+	const req = await fetch(`${config.API_BASE_URL}/invoices/${id}`, {
+		credentials: 'include',
+		method: 'DELETE',
+	})
+}
+
 export const logOut = async () => {
 	const req = await fetch(`${config.API_BASE_URL}/user/logOut`, {
 		credentials: 'include',

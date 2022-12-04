@@ -1,5 +1,6 @@
 <script>
 	import config from '../../config.json'
+	import { deleteInvoice } from '@src/api'
 
 	import viewSvgIcon from '@assets/icons/view.svg'
 	import editSvgIcon from '@assets/icons/edit.svg'
@@ -29,6 +30,10 @@
 
 	function view() {
 		window.location.replace('/view/' + id)
+	}
+
+	const deleteCard = async () => {
+		deleteInvoice(id)
 	}
 
 	const downloadFile = async () => {
@@ -83,11 +88,12 @@
 		</div>
 
 		<div class="tooltip tooltip-bottom" data-tip="ELIMINA">
-			<div
+			<button
 				class="btn bg-red-700 hover:bg-red-800 focus:bg-red-800 border-transparent hover:border-transparent focus:border-transparent w-full"
+				on:click={deleteCard}
 			>
 				<img src={deleteSvgIcon} class="h-5" alt="Icona elimina" />
-			</div>
+			</button>
 		</div>
 	</div>
 </div>
