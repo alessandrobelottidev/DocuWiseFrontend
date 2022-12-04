@@ -1,4 +1,3 @@
-import { navigate } from 'svelte-routing'
 import config from '../config.json'
 
 export const isLoggedIn = async () => {
@@ -68,16 +67,4 @@ export const deleteInvoice = async (id) => {
 		credentials: 'include',
 		method: 'DELETE',
 	})
-}
-
-export const logOut = async () => {
-	const req = await fetch(`${config.API_BASE_URL}/user/logOut`, {
-		credentials: 'include',
-	})
-
-	if (!req.ok) {
-		throw new Error('Non é stato possibile con il server al momento...')
-	} else {
-		window.location.replace('/login')
-	}
 }

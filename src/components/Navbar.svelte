@@ -3,11 +3,26 @@
 	import DocuWiseLogo from '@assets/DocuWiseLogo.png'
 
 	// Components
-	import { Link } from 'svelte-routing'
+	import { Link, navigate } from 'svelte-routing'
 
 	// Logic
-	import { getUser, logOut } from '@src/api'
-	import { loggedIn } from '@src/stores';
+	import config from '../../config.json'
+	import { getUser } from '@src/api'
+	import { loggedIn } from '@src/stores'
+
+	const logOut = async () => {
+		const req = await fetch(`${config.API_BASE_URL}/auth`, {
+			credentials: 'include',
+			method: 'DELETE',
+		})
+
+		$loggedIn = false
+		navigate('/login', { replace: true })
+
+		if (!req.ok) {
+			throw new Error('Non é stato possibile con il server al momento...')
+		}
+	}
 </script>
 
 <navbar
