@@ -2,7 +2,7 @@ import { navigate } from 'svelte-routing'
 import config from '../config.json'
 
 export const isLoggedIn = async () => {
-	const req = await fetch(`${config.API_BASE_URL}/user/isLoggedIn`, {
+	const req = await fetch(`${config.API_BASE_URL}/auth`, {
 		credentials: 'include',
 	})
 	const data = await req.json()
@@ -11,13 +11,13 @@ export const isLoggedIn = async () => {
 }
 
 export const getUser = async () => {
-	const req = await fetch(`${config.API_BASE_URL}/user`, {
+	const req = await fetch(`${config.API_BASE_URL}/accounts/me`, {
 		credentials: 'include',
 	})
 	const data = await req.json()
 
 	if (req.ok) {
-		return JSON.parse(data.azienda)
+		return data
 	} else {
 		throw new Error('Impossibile fare richiesta al server')
 	}
@@ -25,13 +25,13 @@ export const getUser = async () => {
 
 export const getDocuments = async (startDate, endDate) => {
 	const req = await fetch(
-		`${config.API_BASE_URL}/documents/${startDate}/${endDate}`,
+		`${config.API_BASE_URL}/invoices/${startDate}/${endDate}`,
 		{ credentials: 'include' },
 	)
 	const data = await req.json()
 
 	if (req.ok) {
-		if (data.fatture.length == 0) return []
+		if (data.length == 0) return []
 		else {
 			function compare(a, b) {
 				if (a.numeroFattura < b.numeroFattura) return -1
@@ -39,7 +39,7 @@ export const getDocuments = async (startDate, endDate) => {
 				return 0
 			}
 
-			let fatture = JSON.parse(data.fatture)
+			let fatture = data
 			fatture.sort(compare)
 			return fatture
 		}
@@ -51,13 +51,13 @@ export const getDocuments = async (startDate, endDate) => {
 }
 
 export const getDocument = async (id) => {
-	const req = await fetch(`${config.API_BASE_URL}/documents/${id}`, {
+	const req = await fetch(`${config.API_BASE_URL}/invoices/${id}`, {
 		credentials: 'include',
 	})
 	const data = await req.json()
 
 	if (req.ok) {
-		return JSON.parse(data)
+		return data
 	} else {
 		throw new Error('Impossibile fare richiesta al server')
 	}
