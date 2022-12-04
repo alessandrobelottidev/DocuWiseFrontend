@@ -7,8 +7,7 @@
 
 	// Logic
 	import { getUser, logOut } from '@src/api'
-
-	export let loggedIn = false
+	import { loggedIn } from '@src/stores';
 </script>
 
 <navbar
@@ -21,7 +20,7 @@
 		</Link>
 	</div>
 	<div class="flex-none">
-		{#if loggedIn}
+		{#if $loggedIn}
 			<div class="dropdown dropdown-end pr-2">
 				<Link to="/">
 					<div class="btn btn-ghost btn text-white">Le tue fatture</div>

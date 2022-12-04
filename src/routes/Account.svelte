@@ -4,8 +4,8 @@
 
 	// Logic
 	import { getUser } from '@src/api'
+	import { loggedIn } from '@src/stores';
 
-	export let loggedIn
 	export let sitename
 </script>
 
@@ -17,7 +17,7 @@
 	style="height: calc(100vh - 6rem)"
 	class="flex items-center justify-center"
 >
-	{#if loggedIn}
+	{#if $loggedIn}
 		{#await getUser()}
 			Caricando il tuo account...
 		{:then azienda}

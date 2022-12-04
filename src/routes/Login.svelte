@@ -2,13 +2,14 @@
 	import { navigate } from 'svelte-routing'
 	import config from '../../config.json'
 
-	export let loggedIn
+	import { loggedIn } from '@src/stores';
+
 	export let sitename
 
 	let username
 	let password
 
-	$: if (loggedIn) window.location.replace('/')
+	$: if ($loggedIn) window.location.replace('/')
 
 	function login() {
 		if (
@@ -41,7 +42,7 @@
 </svelte:head>
 
 <main>
-	{#if !loggedIn}
+	{#if !$loggedIn}
 		<div
 			style="height: calc(100vh - 6rem)"
 			class="flex items-center justify-center"

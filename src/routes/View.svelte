@@ -8,9 +8,9 @@
 	import { navigate } from 'svelte-routing'
 
 	import { getUser, getDocument } from '@src/api'
+	import { loggedIn } from '@src/stores';
 
 	export let id
-	export let loggedIn
 	export let sitename
 
 	async function navigateBack() {
@@ -30,7 +30,7 @@
 	<title>Visualizza fattura | {sitename}</title>
 </svelte:head>
 
-{#if loggedIn}
+{#if $loggedIn}
 	<div class="flex justify-center">
 		<div
 			class="w-screen max-w-4xl bg-white shadow-md rounded-md p-8 aspect-[210/297]"

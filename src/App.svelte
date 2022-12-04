@@ -10,16 +10,16 @@
 	import NotFound from '@routes/NotFound.svelte'
 
 	import { isLoggedIn } from '@src/api'
+	import { loggedIn } from '@src/stores';
 
 	const sitename = 'DocuWise'
-	let loggedIn = false
 
 	isLoggedIn().then((res) => {
 		if (!res) {
 			if (window.location.pathname !== '/login')
 				window.location.replace('/login')
 		} else {
-			loggedIn = true
+			$loggedIn = true
 		}
 	})
 
@@ -27,30 +27,30 @@
 </script>
 
 <Router {url}>
-	<Navbar {loggedIn} />
+	<Navbar />
 	<main class="bg-slate-100 h-screen pt-20 pb-4 px-4 overflow-x-hidden">
 		<Route path="/view/:id" let:params>
-			<View id={params.id} {loggedIn} {sitename} />
+			<View id={params.id} {sitename} />
 		</Route>
 
 		<Route path="/login">
-			<Login {loggedIn} {sitename} />
+			<Login {sitename} />
 		</Route>
 
 		<Route path="/account">
-			<Account {loggedIn} {sitename} />
+			<Account {sitename} />
 		</Route>
 
 		<Route path="/nuovaFattura">
-			<CreateInvoice {loggedIn} {sitename} />
+			<CreateInvoice {sitename} />
 		</Route>
 
 		<Route path="/fatture">
-			<Invoices {loggedIn} {sitename} />
+			<Invoices {sitename} />
 		</Route>
 
 		<Route path="/">
-			<Invoices {loggedIn} {sitename} />
+			<Invoices {sitename} />
 		</Route>
 
 		<Route component={NotFound} />

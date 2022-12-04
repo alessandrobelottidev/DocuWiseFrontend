@@ -7,8 +7,8 @@
 
 	// Logic
 	import config from '../../config.json'
+	import { loggedIn } from '@src/stores';
 
-	export let loggedIn
 	export let sitename
 
 	let numeroFattura = ''
@@ -73,7 +73,7 @@
 	style="height: calc(100vh - 6rem)"
 	class="flex items-center justify-center"
 >
-	{#if loggedIn}
+	{#if $loggedIn}
 		<form
 			class="bg-white rounded-md shadow-md max-w-sm md:max-w-2xl xl:max-w-3xl w-full p-4 pb-6 overflow-y-auto overflow-x-hidden"
 			style="max-height: calc(100vh - 6rem)"

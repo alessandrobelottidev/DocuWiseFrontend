@@ -1,15 +1,18 @@
 <script>
-	import dayjs from 'dayjs'
-
+	// Assets
 	import addSvgIcon from '@assets/icons/add.svg'
+
+	// Components
 	import CardInvoice from '@components/CardInvoice.svelte'
 	import ErrorMessage from '@components/ErrorMessage.svelte'
 	import { Link } from 'svelte-routing'
 
+	// Logic
+	import dayjs from 'dayjs'
 	import { getDocuments } from '@src/api'
 	import { onMount } from 'svelte'
+	import { loggedIn } from '@src/stores';
 
-	export let loggedIn
 	export let sitename
 
 	let startDate
@@ -76,7 +79,7 @@
 	</form>
 
 	<div>
-		{#if loggedIn}
+		{#if $loggedIn}
 			{#await documents}
 				Caricando le tue fatture...
 			{:then fatture}
