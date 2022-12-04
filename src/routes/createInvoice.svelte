@@ -11,49 +11,35 @@
 	export let loggedIn
 	export let sitename
 
-	let numeroFattura
-	let nominativo
-	let data
-	let indirizzoResidenza
-	let capResidenza
-	let cittaResidenza
-	let pIva
-	let codFiscale
-	let tipo
-	let lavoroSvolto
-	let totale
-	let temaPredefinito
-	/*
-	$: console.log(capResidenza)
-
+	let numeroFattura = ''
+	let nominativo = ''
+	let data = ''
+	let indirizzoResidenza = ''
+	let capResidenza = ''
+	let cittaResidenza = ''
+	let pIva = ''
+	let codFiscale = ''
+	let tipo = ''
+	let lavoroSvolto = ''
+	let totale = ''
+	let temaPredefinito = ''
+	
 	const createInvoice = async () => {
 		if (
 			numeroFattura !== '' &&
-			numeroFattura !== undefined &&
 			nominativo !== '' &&
-			nominativo !== undefined &&
 			data !== '' &&
-			data !== undefined &&
 			indirizzoResidenza !== '' &&
-			indirizzoResidenza !== undefined &&
 			capResidenza !== '' &&
-			capResidenza !== undefined &&
 			cittaResidenza !== '' &&
-			cittaResidenza !== undefined &&
 			pIva !== '' &&
-			pIva !== undefined &&
 			codFiscale !== '' &&
-			codFiscale !== undefined &&
 			tipo !== '' &&
-			tipo !== undefined &&
 			lavoroSvolto !== '' &&
-			lavoroSvolto !== undefined &&
 			totale !== '' &&
-			totale !== undefined &&
-			temaPredefinito !== '' &&
-			temaPredefinito !== undefined
+			temaPredefinito !== ''
 		) {
-			const req = await fetch(`${config.API_BASE_URL}/documents`, {
+			const req = await fetch(`${config.API_BASE_URL}/invoices`, {
 				credentials: 'include',
 				headers: {
 					Accept: 'application/json',
@@ -72,11 +58,11 @@
 					tipo,
 					lavoroSvolto,
 					totale,
-					temaPredefinito,
+					theme: temaPredefinito,
 				}),
 			})
 		}
-	}*/
+	}
 </script>
 
 <svelte:head>
@@ -290,7 +276,7 @@
 				</div>
 			</div>
 
-			<button type="button" class="btn w-full">
+			<button type="button" class="btn w-full" on:click={createInvoice}>
 				<img
 					src={documentPlusIcon}
 					class="h-5 mr-2"
