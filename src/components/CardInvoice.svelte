@@ -1,4 +1,6 @@
 <script>
+	import FileSaver from 'file-saver'
+
 	import config from '../../config.json'
 	import { deleteInvoice } from '@src/api'
 
@@ -37,21 +39,15 @@
 	}
 
 	const downloadFile = async () => {
-		const response = await fetch(
-			`${config.API_BASE_URL}/documents/download/${id}`,
-			{
-				credentials: 'include',
-			},
-		)
+		const req = await fetch(`${config.API_BASE_URL}/invoices/download/${id}`, {
+			credentials: 'include',
+		})
 
-		const downloadurl = window.URL.createObjectURL(await response.blob())
-		const link = document.createElement('a')
-		link.href = downloadurl
-
-		// TODO for naming the response can have wins in headers
-		link.setAttribute('download', 'file.pdf') //or any other extension
-		document.body.appendChild(link)
-		link.click()
+		if (req.ok) {
+			const url = await req.json()
+			
+			FileSaver.saveAs(url, "fattura.pdf");
+		}
 	}
 </script>
 
