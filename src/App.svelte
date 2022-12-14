@@ -3,6 +3,7 @@
 	import Navbar from '@components/Navbar.svelte'
 
 	import Login from '@routes/Login.svelte'
+	import Register from '@routes/Register.svelte'
 	import Invoices from '@routes/Invoices.svelte'
 	import CreateInvoice from '@routes/createInvoice.svelte'
 	import Account from '@routes/Account.svelte'
@@ -16,8 +17,9 @@
 
 	isLoggedIn().then((res) => {
 		if (!res) {
-			if (window.location.pathname !== '/login')
-				window.location.replace('/login')
+			if (window.location.pathname !== '/register')
+				if (window.location.pathname !== '/login')
+					window.location.replace('/login')
 		} else {
 			$loggedIn = true
 		}
@@ -35,6 +37,10 @@
 
 		<Route path="/login">
 			<Login {sitename} />
+		</Route>
+
+		<Route path="/register">
+			<Register {sitename} />
 		</Route>
 
 		<Route path="/account">
