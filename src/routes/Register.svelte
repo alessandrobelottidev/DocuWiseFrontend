@@ -1,44 +1,40 @@
 <script>
 	import { Link } from 'svelte-routing'
+	import Input from '@components/Input.svelte'
+	
 	import config from '../../config.json'
-
-	import { loggedIn } from '@src/stores';
+	import { loggedIn } from '@src/stores'
 
 	export let sitename
-
-    let usernameInput
-	let emailInput
-    let passwordInput
-    let confirmPasswordInput
 
 	let username
 	let email
 	let password
     let confirmPassword
 
-	function login() {
-		if (
-			usernameInput.checkValidity() &&
-			emailInput.checkValidity() &&
-			passwordInput.checkValidity() &&
-            confirmPasswordInput.checkValidity()
-		) {
-			if (username !== '' && email !== '' && password !== '' && confirmPassword !== '') {
-				if (password === confirmPassword) {
-					fetch(`${config.API_BASE_URL}/accounts`, {
-						method: 'POST',
-						headers: {
-							Accept: 'application/json',
-							'Content-Type': 'application/json',
-						},
-						body: JSON.stringify({ username, email, password, confirmPassword }),
-						credentials: 'include',
-					})
+	const validation = (event) => {
+		if (event.currentTarget.checkValidity())
+			alert('Validation Passed')
+		else
+			event.stopPropagation()
+	}
+
+	function register() {
+		if (username !== '' && email !== '' && password !== '' && confirmPassword !== '') {
+			if (password === confirmPassword) {
+				fetch(`${config.API_BASE_URL}/accounts`, {
+					method: 'POST',
+					headers: {
+						Accept: 'application/json',
+						'Content-Type': 'application/json',
+					},
+					body: JSON.stringify({ username, email, password, confirmPassword }),
+					credentials: 'include',
+				})
 					.then((res) => res.json())
 					.then((res) => {
 						console.log(res)
 					})
-				}
 			}
 		}
 	}
@@ -54,22 +50,23 @@
 			style="height: calc(100vh - 6rem)"
 			class="flex items-center justify-center flex-col"
 		>
-			<form class="bg-white p-4 rounded-md shadow-md max-w-sm w-full mb-4">
-				<h1 class="text-2xl font-bold text-center">Register</h1>
+			<form 
+				on:submit|preventDefault={validation}	
+				class="bg-white p-4 rounded-md shadow-md max-w-sm w-full mb-4"
+			>
+				<h1 class="text-2xl font-bold text-center">Registrati</h1>
 
 				<div class="form-control w-full">
 					<label class="label" for="username">
 						<span class="label-text">Username</span>
 					</label>
-					<input
+
+					<Input 
 						bind:value={username}
-                        bind:this={usernameInput}
-						type="text"
-						name="username"
+						type="text" 
+						name="username" 
 						placeholder="John Doe"
-						id="username"
-						class="input w-full input-bordered max-w-sm"
-						required
+						required = {true}
 					/>
 				</div>
 
@@ -77,15 +74,13 @@
 					<label class="label" for="email">
 						<span class="label-text">Email</span>
 					</label>
-					<input
+
+					<Input 
 						bind:value={email}
-                        bind:this={emailInput}
-						type="email"
-						name="email"
+						type="email" 
+						name="email" 
 						placeholder="johndoe@example.com"
-						id="email"
-						class="input w-full input-bordered max-w-sm"
-						required
+						required = {true}
 					/>
 				</div>
 
@@ -93,37 +88,33 @@
 					<label class="label" for="password">
 						<span class="label-text">Password</span>
 					</label>
-					<input
+
+					<Input 
 						bind:value={password}
-                        bind:this={passwordInput}
-						type="password"
-						name="password"
+						type="password" 
+						name="password" 
 						placeholder="********"
-						id="password"
-						class="input w-full input-bordered max-w-sm"
-						required
+						required = {true}
 					/>
 				</div>
 
-                <div class="form-control w-full pb-4">
-					<label class="label" for="password">
-						<span class="label-text">Confirm password</span>
+				<div class="form-control w-full pb-4">
+					<label class="label" for="confirmPassword">
+						<span class="label-text">Conferma password</span>
 					</label>
-					<input
+
+					<Input 
 						bind:value={confirmPassword}
-                        bind:this={confirmPasswordInput}
-						type="password"
-						name="confirmPassword"
+						type="password" 
+						name="confirmPassword" 
 						placeholder="********"
-						id="confirmPassword"
-						class="input w-full input-bordered max-w-sm"
-						required
+						required = {true}
 					/>
 				</div>
 
-				<button type="button" class="btn w-full" on:click={login}>Login</button>
+				<button type="submit" class="btn w-full" on:click={register}>Registrati</button>
 			</form>
-            <Link to="/login" class="link link-neutral">Already registered?</Link>
+            <Link to="/login" class="link link-neutral">Giá registrato? Accedi</Link>
 		</div>
 	{/if}
 </main>
