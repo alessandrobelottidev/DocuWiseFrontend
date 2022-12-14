@@ -11,7 +11,7 @@
 	import NotFound from '@routes/NotFound.svelte'
 
 	import { isLoggedIn } from '@src/api'
-	import { loggedIn } from '@src/stores';
+	import { loggedIn } from '@src/stores'
 
 	const sitename = 'DocuWise'
 

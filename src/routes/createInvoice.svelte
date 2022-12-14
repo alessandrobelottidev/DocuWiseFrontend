@@ -7,7 +7,7 @@
 
 	// Logic
 	import config from '../../config.json'
-	import { loggedIn } from '@src/stores';
+	import { loggedIn } from '@src/stores'
 
 	export let sitename
 

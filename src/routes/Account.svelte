@@ -4,7 +4,7 @@
 
 	// Logic
 	import { getUser } from '@src/api'
-	import { loggedIn } from '@src/stores';
+	import { loggedIn } from '@src/stores'
 
 	export let sitename
 </script>

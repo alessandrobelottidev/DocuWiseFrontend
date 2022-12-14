@@ -9,7 +9,7 @@
 	import download from 'downloadjs'
 	import { navigate } from 'svelte-routing'
 
-	import { loggedIn } from '@src/stores';
+	import { loggedIn } from '@src/stores'
 	
 	export let id
 	export let sitename

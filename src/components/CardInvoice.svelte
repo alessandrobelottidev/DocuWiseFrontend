@@ -46,7 +46,7 @@
 		if (req.ok) {
 			const url = await req.json()
 			
-			FileSaver.saveAs(url, "fattura.pdf");
+			FileSaver.saveAs(url, "fattura.pdf")
 		}
 	}
 </script>
