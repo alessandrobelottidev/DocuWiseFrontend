@@ -1,10 +1,13 @@
 <script>
-	import { navigate } from 'svelte-routing'
-	import config from '../../config.json'
+	import { Link } from 'svelte-routing'
 
+	import config from '../../config.json'
 	import { loggedIn } from '@src/stores';
 
 	export let sitename
+
+	let usernameInput
+	let passwordInput
 
 	let username
 	let password
@@ -13,10 +16,8 @@
 
 	function login() {
 		if (
-			// @ts-ignore
-			document.getElementById('username').checkValidity() &&
-			// @ts-ignore
-			document.getElementById('password').checkValidity()
+			usernameInput.checkValidity() &&
+			passwordInput.checkValidity()
 		) {
 			if (username !== '' && password !== '') {
 				fetch(`${config.API_BASE_URL}/auth`, {
@@ -45,9 +46,9 @@
 	{#if !$loggedIn}
 		<div
 			style="height: calc(100vh - 6rem)"
-			class="flex items-center justify-center"
+			class="flex items-center justify-center flex-col"
 		>
-			<form class="bg-white p-4 rounded-md shadow-md max-w-sm w-full">
+			<form class="bg-white p-4 rounded-md shadow-md max-w-sm w-full mb-4">
 				<h1 class="text-2xl font-bold text-center">Login</h1>
 
 				<div class="form-control w-full">
@@ -56,9 +57,10 @@
 					</label>
 					<input
 						bind:value={username}
+						bind:this={usernameInput}
 						type="text"
 						name="username"
-						placeholder="Username"
+						placeholder="John doe"
 						id="username"
 						class="input w-full input-bordered max-w-sm"
 						required
@@ -71,9 +73,10 @@
 					</label>
 					<input
 						bind:value={password}
+						bind:this={passwordInput}
 						type="password"
 						name="password"
-						placeholder="Password"
+						placeholder="********"
 						id="password"
 						class="input w-full input-bordered max-w-sm"
 						required
@@ -82,6 +85,7 @@
 
 				<button type="button" class="btn w-full" on:click={login}>Login</button>
 			</form>
+			<Link to="/register" class="link link-neutral">New to the site? Register</Link>
 		</div>
 	{/if}
 </main>
