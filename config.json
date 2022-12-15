@@ -1,3 +1,3 @@
 {
-    "API_BASE_URL": "http://localhost:3000/api"
+    "API_BASE_URL": "http://docuwiseapi-env.eba-3rqsga4b.eu-west-3.elasticbeanstalk.com/api"
 }
