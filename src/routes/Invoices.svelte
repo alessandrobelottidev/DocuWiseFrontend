@@ -19,10 +19,6 @@
 	let endDate
 	let documents = []
 
-	$: console.log(documents)
-	$: console.log('Start date:', startDate)
-	$: console.log('End date:', endDate)
-
 	onMount(() => {
 		startDate = `${dayjs().year()}-${dayjs().month() + 1}-01`
 
