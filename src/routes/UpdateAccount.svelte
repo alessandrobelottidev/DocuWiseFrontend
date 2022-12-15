@@ -5,7 +5,7 @@
 
 	// Logic
 	import config from '../../config.json'
-	import { loggedIn } from '@src/stores'
+	import { loggedIn, user } from '@src/stores'
 
 	export let sitename
 
@@ -16,10 +16,10 @@
     let urlProfilo
 
 	const validation = (event) => {
+		event.preventDefault()
+
 		if (event.currentTarget.checkValidity())
-			alert('Validation Passed')
-		else
-			event.stopPropagation()
+			updateAccount()
 	}
 	
 	const updateAccount = async () => {
@@ -45,6 +45,14 @@
                     urlProfilo,
 				}),
 			})
+
+			if (req.ok) {
+				$user.nomeAzienda = nomeAzienda
+				$user.indirizzoResidenzaFiscale = indirizzoResidenzaFiscale
+				$user.indirizzoResidenzaCitta = indirizzoResidenzaCitta
+				$user.pIva = pIva
+				$user.urlProfilo = urlProfilo
+			}
 		}
 	}
 </script>
@@ -137,7 +145,7 @@
 				</div>
 			</div>
 
-			<button type="submit" class="btn w-full" on:click={updateAccount}>
+			<button type="submit" class="btn w-full">
 				Modifica account
 			</button>
 		</form>
