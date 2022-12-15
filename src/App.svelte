@@ -7,6 +7,7 @@
 	import Invoices from '@routes/Invoices.svelte'
 	import CreateInvoice from '@routes/createInvoice.svelte'
 	import Account from '@routes/Account.svelte'
+	import UpdateAccount from '@routes/UpdateAccount.svelte'
 	import View from '@routes/View.svelte'
 	import NotFound from '@routes/NotFound.svelte'
 
@@ -45,6 +46,10 @@
 
 		<Route path="/account">
 			<Account {sitename} />
+		</Route>
+
+		<Route path="/update-account">
+			<UpdateAccount {sitename} />
 		</Route>
 
 		<Route path="/nuovaFattura">

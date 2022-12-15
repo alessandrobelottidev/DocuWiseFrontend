@@ -62,6 +62,19 @@ export const getDocument = async (id) => {
 	}
 }
 
+export const getNotifications = async () => {
+	const req = await fetch(`${config.API_BASE_URL}/notifications/10`, {
+		credentials: 'include',
+	})
+	const data = await req.json()
+
+	if (req.ok) {
+		return data
+	} else {
+		throw new Error(data)
+	}
+}
+
 export const deleteInvoice = async (id) => {
 	const req = await fetch(`${config.API_BASE_URL}/invoices/${id}`, {
 		credentials: 'include',

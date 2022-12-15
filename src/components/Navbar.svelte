@@ -1,14 +1,29 @@
 <script>
 	// Assets
 	import DocuWiseLogo from '@assets/DocuWiseLogo.png'
+	import notificationsIcon from '@assets/icons/notifications.svg'
+	import notificationsActiveIcon from '@assets/icons/notifications-active.svg'
 
 	// Components
+	import { onMount } from 'svelte'
 	import { Link, navigate } from 'svelte-routing'
+	import Notification from '@components/Notification.svelte'
 
 	// Logic
 	import config from '../../config.json'
-	import { getUser } from '@src/api'
-	import { loggedIn } from '@src/stores'
+	import { getUser, getNotifications } from '@src/api'
+	import { loggedIn, unreadNotifications, notifications } from '@src/stores'
+
+	$: {
+		$unreadNotifications = 0
+		$notifications.forEach((notification) => {
+			if (!notification.read) $unreadNotifications++
+		})
+	}
+
+	onMount(async () => {
+        $notifications = await getNotifications()
+    })
 
 	const logOut = async () => {
 		const req = await fetch(`${config.API_BASE_URL}/auth`, {
@@ -44,6 +59,39 @@
 					<div class="btn btn-ghost btn text-white">Nuova fattura</div>
 				</Link>
 			</div>
+
+			<div class="dropdown dropdown-end">
+				<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
+				<div tabindex="0" class="btn btn-ghost btn-circle avatar">
+					<div class="w-6 rounded-full">
+						{#if $unreadNotifications > 0}
+							<img src={notificationsActiveIcon} alt="Notifications icon">
+						{:else}
+							<img src={notificationsIcon} alt="Notifications icon">
+						{/if}
+						
+					</div>
+				</div>
+				<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
+				{#if $notifications.length > 0}
+					<ul
+						tabindex="0"
+						class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box max-w-[240px] w-screen"
+					>
+						{#each $notifications as notification}
+							<Notification {notification} id={notification.id} />
+						{/each}
+					</ul>
+				{:else}
+					<li>
+						<div class="hover:bg-white active:bg-white active:text-black">
+							<p class="text-center">Non hai notifiche</p>
+						</div>
+					</li>
+				{/if}
+			</div>
+
+			<!-- Profile -->
 			<div class="dropdown dropdown-end">
 				<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
 				<div tabindex="0" class="btn btn-ghost btn-circle avatar">
@@ -56,7 +104,7 @@
 				<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
 				<ul
 					tabindex="0"
-					class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
+					class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box  max-w-[100px] w-screen"
 				>
 					<li>
 						<Link class="active:bg-emerald-700" to="/account">Account</Link>
