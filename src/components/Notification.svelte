@@ -19,7 +19,7 @@
     }
 </script>
 
-<li>
+<li class="w-full">
     {#if notification.hasAction }
         <Link 
             on:click={handleNotificationClick}

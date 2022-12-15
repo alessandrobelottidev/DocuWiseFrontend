@@ -5,14 +5,12 @@
 	import notificationsActiveIcon from '@assets/icons/notifications-active.svg'
 
 	// Components
-	import { onMount } from 'svelte'
 	import { Link, navigate } from 'svelte-routing'
 	import Notification from '@components/Notification.svelte'
 
 	// Logic
 	import config from '../../config.json'
-	import { getUser, getNotifications } from '@src/api'
-	import { loggedIn, unreadNotifications, notifications } from '@src/stores'
+	import { loggedIn, user, unreadNotifications, notifications } from '@src/stores'
 
 	$: {
 		$unreadNotifications = 0
@@ -20,10 +18,6 @@
 			if (!notification.read) $unreadNotifications++
 		})
 	}
-
-	onMount(async () => {
-        $notifications = await getNotifications()
-    })
 
 	const logOut = async () => {
 		const req = await fetch(`${config.API_BASE_URL}/auth`, {
@@ -73,22 +67,24 @@
 					</div>
 				</div>
 				<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
-				{#if $notifications.length > 0}
-					<ul
-						tabindex="0"
-						class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box max-w-[240px] w-screen"
-					>
-						{#each $notifications as notification}
-							<Notification {notification} id={notification.id} />
-						{/each}
-					</ul>
-				{:else}
-					<li>
-						<div class="hover:bg-white active:bg-white active:text-black">
-							<p class="text-center">Non hai notifiche</p>
-						</div>
-					</li>
-				{/if}
+				<ul
+					tabindex="0"
+					class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box"
+				>
+					<div class="max-w-[240px] max-h-[180px] h-content w-screen flex flex-col overflow-y-auto overflow-x-none">
+						{#if $notifications.length > 0}
+							{#each $notifications as notification}
+								<Notification {notification} id={notification.id} />
+							{/each}
+						{:else}
+							<li class="w-full">
+								<div class="hover:bg-white active:bg-white active:text-black">
+									<p class="text-center">Non hai notifiche</p>
+								</div>
+							</li>
+						{/if}
+					</div>
+				</ul>
 			</div>
 
 			<!-- Profile -->
@@ -96,9 +92,9 @@
 				<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
 				<div tabindex="0" class="btn btn-ghost btn-circle avatar">
 					<div class="w-10 rounded-full">
-						{#await getUser() then azienda}
-							<img src={azienda.urlProfilo} alt="Profile" />
-						{/await}
+						{#if $user !== null}
+							<img class="bg-white" src={$user.urlProfilo} alt="Profile" />
+						{/if}
 					</div>
 				</div>
 				<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
