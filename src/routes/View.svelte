@@ -1,15 +1,16 @@
 <script>
+	import FileSaver from 'file-saver'
+
 	import config from '../../config.json'
 
 	import downloadSvgIcon from '@assets/icons/download.svg'
 	import backSvgIcon from '@assets/icons/back.svg'
 	import deleteSvgIcon from '@assets/icons/delete.svg'
 	import ErrorMessage from '@components/ErrorMessage.svelte'
-	import * as htmlToImage from 'html-to-image'
-	import download from 'downloadjs'
 	import { navigate } from 'svelte-routing'
 
 	import { loggedIn } from '@src/stores'
+  	import { deleteInvoice } from '@src/api'
 	
 	export let id
 	export let sitename
@@ -18,12 +19,16 @@
 		navigate('/')
 	}
 
-	async function downloadInvoice() {
-		let invoice = document.getElementById('invoice')
-
-		htmlToImage.toPng(invoice).then((dataUrl) => {
-			download(dataUrl, 'fattura.png')
+	const downloadFile = async () => {
+		const req = await fetch(`${config.API_BASE_URL}/invoices/download/${id}`, {
+			credentials: 'include',
 		})
+
+		if (req.ok) {
+			const url = await req.json()
+			
+			FileSaver.saveAs(url, "fattura.pdf")
+		}
 	}
 
 	async function viewInvoice() {
@@ -34,7 +39,13 @@
 		if (req.ok) {
 			const url = await req.json()
 			return url
+		} else {
+			navigate('/')
 		}
+	}
+
+	const deleteCard = async () => {
+		deleteInvoice(id)
 	}
 </script>
 
@@ -66,7 +77,7 @@
 		<div class="fixed z-10 bottom-20 right-4">
 			<button
 				class="btn rounded-full w-12 px-0 bg-emerald-700 hover:bg-emerald-800 focus:bg-emerald-800 border-transparent hover:border-transparent focus:border-transparent"
-				on:click={downloadInvoice}
+				on:click={downloadFile}
 			>
 				<img
 					src={downloadSvgIcon}
@@ -80,6 +91,7 @@
 		<div class="fixed z-10 bottom-4 right-4">
 			<button
 				class="btn rounded-full w-12 px-0 bg-red-700 hover:bg-red-800 focus:bg-red-800 border-transparent hover:border-transparent focus:border-transparent"
+				on:click={deleteCard}
 			>
 				<img src={deleteSvgIcon} class="h-5 w-5" alt="Delete invoice icon" />
 			</button>
