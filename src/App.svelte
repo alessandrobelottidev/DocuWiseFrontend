@@ -1,4 +1,5 @@
 <script>
+	import { onMount } from 'svelte'
 	import { Router, Route } from 'svelte-routing'
 	import Navbar from '@components/Navbar.svelte'
 
@@ -11,19 +12,23 @@
 	import View from '@routes/View.svelte'
 	import NotFound from '@routes/NotFound.svelte'
 
-	import { isLoggedIn } from '@src/api'
-	import { loggedIn } from '@src/stores'
+	import { isLoggedIn, getUser, getNotifications } from '@src/api'
+	import { loggedIn, user, notifications } from '@src/stores'
 
 	const sitename = 'DocuWise'
 
-	isLoggedIn().then((res) => {
-		if (!res) {
-			if (window.location.pathname !== '/register')
-				if (window.location.pathname !== '/login')
-					window.location.replace('/login')
-		} else {
-			$loggedIn = true
-		}
+	onMount(async () => {
+		isLoggedIn().then(async (res) => {
+			if (!res) {
+				if (window.location.pathname !== '/register')
+					if (window.location.pathname !== '/login')
+						window.location.replace('/login')
+			} else {
+				$loggedIn = true
+				$user = await getUser()
+				$notifications = await getNotifications()
+			}
+		})
 	})
 
 	export let url = ''
