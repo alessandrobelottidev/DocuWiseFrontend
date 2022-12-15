@@ -29,9 +29,9 @@
 						alt="Random background"
 					/>
 
-					<div class="w-24 rounded-full -translate-y-1/2 ml-4 -mb-14">
+					<div class="rounded-full -translate-y-1/2 ml-4 -mb-14">
 						<img
-							class="border-4 border-white rounded-full"
+							class="w-24 h-24 object-cover border-4 border-white rounded-full"
 							src={azienda.urlProfilo}
 							alt="Profile"
 						/>
