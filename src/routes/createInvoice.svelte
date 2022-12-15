@@ -8,6 +8,7 @@
 	// Logic
 	import config from '../../config.json'
 	import { loggedIn } from '@src/stores'
+  import { navigate } from 'svelte-routing'
 
 	export let sitename
 
@@ -23,6 +24,13 @@
 	let lavoroSvolto = ''
 	let totale = ''
 	let temaPredefinito = ''
+
+	const validation = (event) => {
+		event.preventDefault()
+
+		if (event.currentTarget.checkValidity())
+			createInvoice()
+	}
 	
 	const createInvoice = async () => {
 		if (
@@ -39,7 +47,7 @@
 			totale !== '' &&
 			temaPredefinito !== ''
 		) {
-			const req = await fetch(`${config.API_BASE_URL}/invoices`, {
+			const res = await fetch(`${config.API_BASE_URL}/invoices`, {
 				credentials: 'include',
 				headers: {
 					Accept: 'application/json',
@@ -61,6 +69,9 @@
 					theme: temaPredefinito,
 				}),
 			})
+
+			if (res.ok)
+				navigate('/')
 		}
 	}
 </script>
@@ -75,6 +86,7 @@
 >
 	{#if $loggedIn}
 		<form
+			on:submit|preventDefault={validation}
 			class="bg-white rounded-md shadow-md max-w-sm md:max-w-2xl xl:max-w-3xl w-full p-4 pb-6 overflow-y-auto overflow-x-hidden"
 			style="max-height: calc(100vh - 6rem)"
 		>
@@ -276,7 +288,7 @@
 				</div>
 			</div>
 
-			<button type="button" class="btn w-full" on:click={createInvoice}>
+			<button type="submit" class="btn w-full">
 				<img
 					src={documentPlusIcon}
 					class="h-5 mr-2"

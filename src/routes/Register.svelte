@@ -1,5 +1,5 @@
 <script>
-	import { Link } from 'svelte-routing'
+	import { Link, navigate } from 'svelte-routing'
 	import Input from '@components/Input.svelte'
 	
 	import config from '../../config.json'
@@ -13,16 +13,18 @@
     let confirmPassword
 
 	const validation = (event) => {
-		if (event.currentTarget.checkValidity())
-			alert('Validation Passed')
-		else
-			event.stopPropagation()
+		event.preventDefault()
+
+		if (event.currentTarget.checkValidity()) {
+			if (register())
+				navigate('/login')
+		}
 	}
 
-	function register() {
+	const register = async () => {
 		if (username !== '' && email !== '' && password !== '' && confirmPassword !== '') {
 			if (password === confirmPassword) {
-				fetch(`${config.API_BASE_URL}/accounts`, {
+				const res = await fetch(`${config.API_BASE_URL}/accounts`, {
 					method: 'POST',
 					headers: {
 						Accept: 'application/json',
@@ -31,10 +33,9 @@
 					body: JSON.stringify({ username, email, password, confirmPassword }),
 					credentials: 'include',
 				})
-					.then((res) => res.json())
-					.then((res) => {
-						console.log(res)
-					})
+
+				if (res.ok) return true
+				else return false
 			}
 		}
 	}
@@ -112,7 +113,7 @@
 					/>
 				</div>
 
-				<button type="submit" class="btn w-full" on:click={register}>Registrati</button>
+				<button type="submit" class="btn w-full">Registrati</button>
 			</form>
             <Link to="/login" class="link link-neutral">Giá registrato? Accedi</Link>
 		</div>

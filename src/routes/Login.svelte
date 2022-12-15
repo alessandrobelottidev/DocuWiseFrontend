@@ -13,10 +13,10 @@
 	$: if ($loggedIn) window.location.replace('/')
 
 	const validation = (event) => {
+		event.preventDefault()
+
 		if (event.currentTarget.checkValidity())
-			alert('Validation Passed')
-		else
-			event.stopPropagation()
+			login()
 	}
 
 	function login() {
@@ -82,7 +82,7 @@
 					/>
 				</div>
 
-				<button type="submit" class="btn w-full" on:click={login}>Accedi</button>
+				<button type="submit" class="btn w-full">Accedi</button>
 			</form>
 			<Link to="/register" class="link link-neutral">Nuovo al sito? Registrati</Link>
 		</div>
