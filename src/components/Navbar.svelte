@@ -35,8 +35,25 @@
 </script>
 
 <navbar
-	class="navbar bg-emerald-700 fixed w-full top-0 left-0 z-10 px-4 drop-shadow-md"
+	class="navbar bg-emerald-700 fixed w-full top-0 left-0 z-10 px-2 md:px-4 drop-shadow-md"
 >
+	<div class="block md:hidden">
+		<div class="dropdown">
+			<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
+			<div tabindex="0" class="btn btn-ghost btn-circle">
+				<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="white"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7" /></svg>
+			</div>
+			<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
+			<ul tabindex="0" class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
+				<li>
+					<Link class="active:bg-emerald-700" to="/">Le tue fatture</Link>
+				</li>
+				<li>
+					<Link class="active:bg-emerald-700" to="/nuovaFattura">Nuova fattura</Link>
+				</li>
+			</ul>
+		</div>
+	</div>
 	<div class="flex-1">
 		<Link to="/" class="flex flex-row items-center">
 			<img src={DocuWiseLogo} alt="DocuWise Logo" class="h-8" />
@@ -45,7 +62,7 @@
 	</div>
 	<div class="flex-none">
 		{#if $loggedIn}
-			<div class="dropdown dropdown-end pr-2">
+			<div class="dropdown dropdown-end pr-2 hidden md:block">
 				<Link to="/">
 					<div class="btn btn-ghost btn text-white">Le tue fatture</div>
 				</Link>

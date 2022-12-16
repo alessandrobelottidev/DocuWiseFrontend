@@ -92,7 +92,7 @@
 		>
 			<h1 class="text-2xl font-bold text-center mb-4">Nuova fattura</h1>
 
-			<div class="w-full gap-x-4 gap-y-2 grid grid-cols-2 mb-4">
+			<div class="w-full gap-x-4 gap-y-2 grid grid-cols-1 md:grid-cols-2 mb-4">
 				<!-- Numero fattura -->
 				<div class="form-control w-full ">
 					<label class="label" for="numeroFattura">

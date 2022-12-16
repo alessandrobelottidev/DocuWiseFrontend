@@ -36,7 +36,7 @@
 
 <Router {url}>
 	<Navbar />
-	<main class="bg-slate-100 h-screen pt-20 pb-4 px-4 overflow-x-hidden">
+	<main class="bg-slate-100 h-screen pt-20 pb-1 px-2 md:pb-4 md:px-4 overflow-x-hidden">
 		<Route path="/view/:id" let:params>
 			<View id={params.id} {sitename} />
 		</Route>

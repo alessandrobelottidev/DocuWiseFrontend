@@ -1,5 +1,6 @@
 <script>
 	import FileSaver from 'file-saver'
+	import Zoom from 'svelte-zoom'
 
 	import config from '../../config.json'
 
@@ -14,6 +15,8 @@
 	
 	export let id
 	export let sitename
+
+	let zoom
 
 	async function navigateBack() {
 		navigate('/')
@@ -56,13 +59,17 @@
 {#if $loggedIn}
 	<div class="flex justify-center">
 		<div
-			class="w-screen max-w-4xl bg-white shadow-md rounded-md aspect-[210/297]"
 			id="invoice"
 		>
 			{#await viewInvoice()}
 				Loading invoice...
-			{:then url} 
-				<img src={url} alt="Visualizza fattura">
+			{:then url}
+				<div class="w-screen max-w-4xl bg-white shadow-md rounded-md aspect-[210/297] block sm:hidden">
+					<Zoom src={url} alt="Fattura" bind:this={zoom} />
+				</div>
+				<div class="w-screen max-w-4xl bg-white shadow-md rounded-md aspect-[210/297] hidden sm:block">
+					<img src={url} alt="Fattura">
+				</div>
 			{/await}
 		</div>
 

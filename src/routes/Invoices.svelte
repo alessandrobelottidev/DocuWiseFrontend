@@ -46,7 +46,7 @@
 	<h1 class="text-2xl font-bold pb-4">Le tue fatture</h1>
 
 	<!-- Filters -->
-	<form action="#" class="flex flex-row items-end pb-4 gap-2">
+	<form action="#" class="flex flex-col sm:flex-row sm:items-end pb-4 gap-2">
 		<div class="form-control">
 			<label class="label" for="startDate">
 				<span class="label-text">Data inizio</span>
@@ -54,7 +54,7 @@
 			<input
 				type="date"
 				name="startDate"
-				class="input drop-shadow-sm w-full max-w-[200px]"
+				class="input drop-shadow-sm w-full sm:max-w-[200px]"
 				bind:value={startDate}
 			/>
 		</div>
@@ -66,7 +66,7 @@
 			<input
 				type="date"
 				name="endDate"
-				class="input drop-shadow-sm w-full max-w-[200px]"
+				class="input drop-shadow-sm w-full sm:max-w-[200px]"
 				bind:value={endDate}
 			/>
 		</div>
