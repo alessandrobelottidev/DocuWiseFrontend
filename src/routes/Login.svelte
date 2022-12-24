@@ -10,8 +10,6 @@
 	let username
 	let password
 
-	$: if ($loggedIn) window.location.replace('/')
-
 	const validation = (event) => {
 		event.preventDefault()
 

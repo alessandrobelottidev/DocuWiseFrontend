@@ -6,7 +6,8 @@ export const isLoggedIn = async () => {
 	})
 	const data = await req.json()
 
-	return data.loggedIn
+	if (req.ok) return data.loggedIn
+	else throw new Error('Impossibile fare richiesta al server')
 }
 
 export const getUser = async () => {

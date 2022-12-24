@@ -18,17 +18,17 @@
 	const sitename = 'DocuWise'
 
 	onMount(async () => {
-		isLoggedIn().then(async (res) => {
-			if (!res) {
-				if (window.location.pathname !== '/register')
-					if (window.location.pathname !== '/login')
-						window.location.replace('/login')
-			} else {
-				$loggedIn = true
-				$user = await getUser()
-				$notifications = await getNotifications()
-			}
-		})
+		let temp = await isLoggedIn()
+		
+		if (temp) {
+			$loggedIn = true
+			$user = await getUser()
+			$notifications = await getNotifications()
+		} else {
+			if (window.location.pathname !== '/register')
+				if (window.location.pathname !== '/login')
+					window.location.replace('/login')
+		}
 	})
 
 	export let url = ''
