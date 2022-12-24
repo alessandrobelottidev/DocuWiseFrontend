@@ -9,7 +9,7 @@
 	import Notification from '@components/Notification.svelte'
 
 	// Logic
-	import config from '../../config.json'
+	import config from '../config'
 	import { loggedIn, user, unreadNotifications, notifications } from '@src/stores'
 
 	$: {
@@ -20,7 +20,7 @@
 	}
 
 	const logOut = async () => {
-		const req = await fetch(`${config.API_BASE_URL}/auth`, {
+		const req = await fetch(`${config.DOCUWISE_API}/auth`, {
 			credentials: 'include',
 			method: 'DELETE',
 		})

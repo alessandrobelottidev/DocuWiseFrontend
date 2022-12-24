@@ -4,7 +4,7 @@
     import Input from '@components/Input.svelte';
 
 	// Logic
-	import config from '../../config.json'
+	import config from '../config'
 	import { loggedIn, user } from '@src/stores'
 
 	export let sitename
@@ -30,7 +30,7 @@
             pIva !== '' &&
             urlProfilo !== ''
 		) {
-			const req = await fetch(`${config.API_BASE_URL}/accounts/update`, {
+			const req = await fetch(`${config.DOCUWISE_API}/accounts/update`, {
 				credentials: 'include',
 				headers: {
 					Accept: 'application/json',

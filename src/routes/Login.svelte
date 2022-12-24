@@ -2,7 +2,7 @@
 	import { Link } from 'svelte-routing'
 	import Input from '@components/Input.svelte'
 
-	import config from '../../config.json'
+	import config from '../config.js'
 	import { loggedIn } from '@src/stores'
 
 	export let sitename
@@ -21,7 +21,7 @@
 
 	function login() {
 		if (username !== '' && password !== '') {
-			fetch(`${config.API_BASE_URL}/auth`, {
+			fetch(`${config.DOCUWISE_API}/auth`, {
 				method: 'POST',
 				headers: {
 					Accept: 'application/json',

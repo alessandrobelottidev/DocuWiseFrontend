@@ -2,7 +2,7 @@
 	import { Link, navigate } from 'svelte-routing'
 	import Input from '@components/Input.svelte'
 	
-	import config from '../../config.json'
+	import config from '../config'
 	import { loggedIn } from '@src/stores'
 
 	export let sitename
@@ -24,7 +24,7 @@
 	const register = async () => {
 		if (username !== '' && email !== '' && password !== '' && confirmPassword !== '') {
 			if (password === confirmPassword) {
-				const res = await fetch(`${config.API_BASE_URL}/accounts`, {
+				const res = await fetch(`${config.DOCUWISE_API}/accounts`, {
 					method: 'POST',
 					headers: {
 						Accept: 'application/json',

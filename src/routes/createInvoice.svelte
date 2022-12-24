@@ -6,9 +6,9 @@
 	import ErrorMessage from '@components/ErrorMessage.svelte'
 
 	// Logic
-	import config from '../../config.json'
+	import config from '../config'
 	import { loggedIn } from '@src/stores'
-  import { navigate } from 'svelte-routing'
+  	import { navigate } from 'svelte-routing'
 
 	export let sitename
 
@@ -47,7 +47,7 @@
 			totale !== '' &&
 			temaPredefinito !== ''
 		) {
-			const res = await fetch(`${config.API_BASE_URL}/invoices`, {
+			const res = await fetch(`${config.DOCUWISE_API}/invoices`, {
 				credentials: 'include',
 				headers: {
 					Accept: 'application/json',

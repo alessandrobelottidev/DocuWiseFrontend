@@ -1,7 +1,7 @@
-import config from '../config.json'
+import config from './config'
 
 export const isLoggedIn = async () => {
-	const req = await fetch(`${config.API_BASE_URL}/auth`, {
+	const req = await fetch(`${config.DOCUWISE_API}/auth`, {
 		credentials: 'include',
 	})
 	const data = await req.json()
@@ -10,7 +10,7 @@ export const isLoggedIn = async () => {
 }
 
 export const getUser = async () => {
-	const req = await fetch(`${config.API_BASE_URL}/accounts/me`, {
+	const req = await fetch(`${config.DOCUWISE_API}/accounts/me`, {
 		credentials: 'include',
 	})
 	const data = await req.json()
@@ -24,7 +24,7 @@ export const getUser = async () => {
 
 export const getDocuments = async (startDate, endDate) => {
 	const req = await fetch(
-		`${config.API_BASE_URL}/invoices/${startDate}/${endDate}`,
+		`${config.DOCUWISE_API}/invoices/${startDate}/${endDate}`,
 		{ credentials: 'include' },
 	)
 	const data = await req.json()
@@ -50,7 +50,7 @@ export const getDocuments = async (startDate, endDate) => {
 }
 
 export const getDocument = async (id) => {
-	const req = await fetch(`${config.API_BASE_URL}/invoices/${id}`, {
+	const req = await fetch(`${config.DOCUWISE_API}/invoices/${id}`, {
 		credentials: 'include',
 	})
 	const data = await req.json()
@@ -63,7 +63,7 @@ export const getDocument = async (id) => {
 }
 
 export const getNotifications = async () => {
-	const req = await fetch(`${config.API_BASE_URL}/notifications/10`, {
+	const req = await fetch(`${config.DOCUWISE_API}/notifications/10`, {
 		credentials: 'include',
 	})
 	const data = await req.json()
@@ -76,7 +76,7 @@ export const getNotifications = async () => {
 }
 
 export const deleteInvoice = async (id) => {
-	const req = await fetch(`${config.API_BASE_URL}/invoices/${id}`, {
+	const req = await fetch(`${config.DOCUWISE_API}/invoices/${id}`, {
 		credentials: 'include',
 		method: 'DELETE',
 	})

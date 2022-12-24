@@ -1,7 +1,7 @@
 <script>
 	import FileSaver from 'file-saver'
 
-	import config from '../../config.json'
+	import config from '../config'
 	import { deleteInvoice } from '@src/api'
 
 	import viewSvgIcon from '@assets/icons/view.svg'
@@ -39,7 +39,7 @@
 	}
 
 	const downloadFile = async () => {
-		const req = await fetch(`${config.API_BASE_URL}/invoices/download/${id}`, {
+		const req = await fetch(`${config.DOCUWISE_API}/invoices/download/${id}`, {
 			credentials: 'include',
 		})
 

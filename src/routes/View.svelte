@@ -2,7 +2,7 @@
 	import FileSaver from 'file-saver'
 	import Zoom from 'svelte-zoom'
 
-	import config from '../../config.json'
+	import config from '../config'
 
 	import downloadSvgIcon from '@assets/icons/download.svg'
 	import backSvgIcon from '@assets/icons/back.svg'
@@ -23,7 +23,7 @@
 	}
 
 	const downloadFile = async () => {
-		const req = await fetch(`${config.API_BASE_URL}/invoices/download/${id}`, {
+		const req = await fetch(`${config.DOCUWISE_API}/invoices/download/${id}`, {
 			credentials: 'include',
 		})
 
@@ -35,7 +35,7 @@
 	}
 
 	async function viewInvoice() {
-		const req = await fetch(`${config.API_BASE_URL}/invoices/view/${id}`, {
+		const req = await fetch(`${config.DOCUWISE_API}/invoices/view/${id}`, {
 			credentials: 'include',
 		})
 

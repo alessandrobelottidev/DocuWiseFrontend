@@ -1,7 +1,7 @@
 <script>
     import { Link } from 'svelte-routing'
 
-    import config from '../../config.json'
+    import config from '../config'
     import { getNotifications } from '@src/api'
     import { notifications } from '@src/stores'
 
@@ -9,7 +9,7 @@
     export let id
 
     const handleNotificationClick = async () => {
-		const req = await fetch(`${config.API_BASE_URL}/notifications/read/${id}`, {
+		const req = await fetch(`${config.DOCUWISE_API}/notifications/read/${id}`, {
 			credentials: 'include',
 			method: 'PATCH',
 		})
