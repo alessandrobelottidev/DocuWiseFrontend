@@ -25,9 +25,9 @@
 			$user = await getUser()
 			$notifications = await getNotifications()
 		} else {
-			if (window.location.pathname !== '/register')
-				if (window.location.pathname !== '/login')
-					window.location.replace('/login')
+			if (window.location.pathname !== '/register/')
+				if (window.location.pathname !== '/login/')
+					window.location.replace('/login/')
 		}
 	})
 
